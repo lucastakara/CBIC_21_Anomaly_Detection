@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from models_architectures.LSTM_Autoencoder import LSTM_Autoencoder  # Replace 'your_module' with the actual module name
+from models_architectures.LSTM_Autoencoder import LSTMAutoencoder
 import tensorflow as tf
 
 
@@ -9,7 +9,7 @@ class TestLSTMAutoencoder(unittest.TestCase):
         self.time_window_size = 30
         self.n_features = 1
         self.input_shape = (self.time_window_size, self.n_features)
-        self.autoencoder = LSTM_Autoencoder(self.input_shape)
+        self.autoencoder = LSTMAutoencoder(self.input_shape)
 
         # Creating dummy data for training and testing
         self.X_train = np.random.rand(100, self.time_window_size, self.n_features)
