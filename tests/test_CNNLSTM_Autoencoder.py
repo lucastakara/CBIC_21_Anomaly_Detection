@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import numpy as np
-from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder  # Replace with your actual import statement
+from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder
 
 
 class TestCNNLSTMAutoencoder(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestCNNLSTMAutoencoder(unittest.TestCase):
         """
         # Create dummy data
         X_train = np.random.rand(100, *self.input_shape)
-        y_train = np.random.rand(100, self.input_shape[0])  # Adjust based on your actual output shape
+        y_train = np.random.rand(100, self.input_shape[0])  # Adjust based on the actual output shape
 
         # Assume these parameters for the test
         epochs = 10
@@ -54,7 +54,7 @@ class TestCNNLSTMAutoencoder(unittest.TestCase):
         data = np.random.rand(5, *self.input_shape)
 
         # Mock the behavior of the predict method
-        mock_prediction = np.random.rand(5, self.input_shape[0])  # Adjust based on your actual output shape
+        mock_prediction = np.random.rand(5, self.input_shape[0])  # Adjust based on the actual output shape
         mock_predict.return_value = mock_prediction
 
         # Make a prediction
@@ -73,7 +73,7 @@ class TestCNNLSTMAutoencoder(unittest.TestCase):
         """
         # Create dummy test data and labels
         X_test = np.random.rand(20, *self.input_shape)
-        y_test = np.random.rand(20, self.input_shape[0])  # Adjust based on your actual output shape
+        y_test = np.random.rand(20, self.input_shape[0])  # Adjust based on the actual output shape
 
         # Mock the behavior of the evaluate method
         mock_loss = 0.05  # A dummy loss value

@@ -2,8 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 import pandas as pd
 import numpy as np
-from main import plot_anomaly_points, plot_train_val_loss, \
-    determine_anomalies  # Adjust the import statement according to your file structure and actual file names.
+from main import plot_anomaly_points, plot_train_val_loss, determine_anomalies
 
 
 class TestPlotFunctions(unittest.TestCase):
