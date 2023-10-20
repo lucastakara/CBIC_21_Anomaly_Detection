@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from models_architecture.LSTM_Autoencoder import LSTM_Autoencoder  # Replace 'your_module' with the actual module name
+from models_architectures.LSTM_Autoencoder import LSTM_Autoencoder  # Replace 'your_module' with the actual module name
 import tensorflow as tf
 
 

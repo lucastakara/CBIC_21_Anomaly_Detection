@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import numpy as np
-from models_architecture.BILSTM_Autoencoder import BiLSTMAutoencoder  # Replace with your actual import statement
+from models_architectures.BILSTM_Autoencoder import BiLSTMAutoencoder  # Replace with your actual import statement
 
 
 class TestBiLSTMAutoencoder(unittest.TestCase):

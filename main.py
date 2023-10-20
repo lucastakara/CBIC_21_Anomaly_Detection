@@ -10,9 +10,9 @@ from matplotlib.dates import DateFormatter
 
 from utils.preprocessing import Dataset
 
-from models_architecture.LSTM_Autoencoder import LSTMAutoencoder
-from models_architecture.BILSTM_Autoencoder import BiLSTMAutoencoder
-from models_architecture.CNNLSTM_Autoencoder import CNNLSTMAutoencoder
+from models_architectures.LSTM_Autoencoder import LSTMAutoencoder
+from models_architectures.BILSTM_Autoencoder import BiLSTMAutoencoder
+from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder
 
 
 def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
