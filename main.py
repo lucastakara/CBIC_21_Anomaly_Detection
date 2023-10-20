@@ -149,15 +149,16 @@ def main():
 
     X_train, y_train, X_test, y_test = dataset.prepare_data_for_autoencoder(train, test)
 
-    input_shape = (X_train.shape[1], X_train.shape[2])  # Input shape for the LSTM Autoencoder
-    model = LSTMAutoencoder(input_shape)
-    history = model.train(X_train, y_train, epochs=10)
+    input_shape = (X_train.shape[1], X_train.shape[2])
+    for Autoencoder in [LSTMAutoencoder, BiLSTMAutoencoder, CNNLSTMAutoencoder]:
+        model = Autoencoder(input_shape)
+        history = model.train(X_train, y_train, epochs=2)
 
-    plot_train_val_loss(history, save=True)
+        plot_train_val_loss(history, save=True)
 
-    test_score_df, anomalies = determine_anomalies(model, X_train, X_test, test)
+        test_score_df, anomalies = determine_anomalies(model, X_train, X_test, test)
 
-    plot_anomaly_points(anomalies, test_score_df, train, test, save=True)
+        plot_anomaly_points(anomalies, test_score_df, train, test, save=True)
 
 
 if __name__ == '__main__':
