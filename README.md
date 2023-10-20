@@ -54,6 +54,6 @@ python main.py
 ```
 
 ### Next implementations
-[] Implement K-fold Cross-Validation
-[] Perform loss reconstruction with different loss functions (MSE, MAPE, RMSE)
-[] Implement Hyperparameter tuning 
+- [ ] Implement K-fold Cross-Validation
+- [ ] Perform loss reconstruction with different loss functions (MSE, MAPE, RMSE)
+- [ ] Implement Hyperparameter tuning 
