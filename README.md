@@ -52,3 +52,8 @@ Now that the environment is set up, you can run the project using:
 ```bash
 python main.py
 ```
+
+### Next implementations
+- [ ] Implement K-fold Cross-Validation
+- [ ] Perform loss reconstruction with different loss functions (MSE, MAPE, RMSE)
+- [ ] Implement Hyperparameter tuning 
