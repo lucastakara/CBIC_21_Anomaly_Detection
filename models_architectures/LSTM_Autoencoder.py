@@ -1,36 +1,31 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, RepeatVector, TimeDistributed
-from tensorflow.keras.utils import plot_model
+from tensorflow.keras.layers import Dense, LSTM, RepeatVector, TimeDistributed
 
-class CNNLSTMAutoencoder:
+
+class LSTMAutoencoder:
     def __init__(self, input_shape):
         """
-        Initializes the CNN-LSTM Autoencoder model.
+        Initializes the LSTM Autoencoder model.
 
-        :param input_shape: tuple, shape (time_window_size, n_features) for CNN input.
+        :param input_shape: tuple, shape (time_window_size, n_features) for LSTM input.
         """
         self.model = self._create_model(input_shape)
 
-    @staticmethod
-    def _create_model(input_shape):
+    def _create_model(self, input_shape):
         """
-        Creates a CNN-LSTM Autoencoder model.
+        Creates an LSTM Autoencoder model.
 
-        :param input_shape: tuple, shape (time_window_size, n_features) for CNN input.
-        :return: Compiled CNN-LSTM Autoencoder model.
+        :param input_shape: tuple, shape (time_window_size, n_features) for LSTM input.
+        :return: Compiled LSTM Autoencoder model.
         """
-        model_CNNLSTM = Sequential()
-        model_CNNLSTM.add(Conv1D(filters=64, kernel_size=1, activation='relu', input_shape=input_shape))
-        model_CNNLSTM.add(MaxPooling1D(pool_size=2))
-        model_CNNLSTM.add(Flatten())
-        model_CNNLSTM.add(RepeatVector(input_shape[0]))
-        model_CNNLSTM.add(TimeDistributed(Dense(input_shape[1], activation="linear")))
+        model = Sequential()
+        model.add(LSTM(128, input_shape=input_shape, return_sequences=False))
+        model.add(RepeatVector(input_shape[0]))
+        model.add(LSTM(128, return_sequences=True))  # Adding an LSTM layer for symmetry in the autoencoder
+        model.add(TimeDistributed(Dense(input_shape[1], activation="linear")))
 
-        # Consider removing the plot_model line or making it optional as it is file system dependent
-        # plot_model(model_CNNLSTM, to_file="model_CNNLSTM.png", show_shapes=True, show_layer_names=True)
-
-        model_CNNLSTM.compile(optimizer='adam', loss='mape')  # Consider using a standard loss function like 'mae'
-        return model_CNNLSTM
+        model.compile(optimizer='adam', loss='mae')
+        return model
 
     def train(self, X_train, y_train, epochs=60, batch_size=32, validation_split=0.1, shuffle=False):
         """

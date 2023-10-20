@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import numpy as np
-from models_architecture.CNNLSTM_Autoencoder import CNNLSTMAutoencoder  # Replace with your actual import statement
+from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder  # Replace with your actual import statement
 
 
 class TestCNNLSTMAutoencoder(unittest.TestCase):
