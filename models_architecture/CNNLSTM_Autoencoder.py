@@ -1,6 +1,5 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, RepeatVector, TimeDistributed
-from tensorflow.keras.utils import plot_model
 
 class CNNLSTMAutoencoder:
     def __init__(self, input_shape):
