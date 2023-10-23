@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from sklearn.preprocessing import StandardScaler
 from matplotlib.dates import DateFormatter
 
 from utils.preprocessing import Dataset
@@ -15,7 +14,7 @@ from models_architectures.BILSTM_Autoencoder import BiLSTMAutoencoder
 from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder
 
 
-def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
+def plot_anomaly_points(anomalies, test_score_df, train, test, scaler, save=False):
     """
     Plots the anomaly points on the graph of stock prices.
 
@@ -24,10 +23,6 @@ def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
     :param train: DataFrame containing the training data.
     :param test: DataFrame containing the test data.
     """
-    # Initialize and fit the scaler
-    scaler = StandardScaler()
-    scaler.fit(train[['Close']])
-
     # Avoid SettingWithCopyWarning with proper dataframe handling
     train_scaled = train.copy()
     test_scaled = test.copy()
@@ -39,9 +34,9 @@ def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
     anomalies_close_reshaped = anomalies['Close'].values.reshape(-1, 1)
 
     # Create the line plot for close prices
-    sns.lineplot(x=test_score_df['Date'], y=scaler.inverse_transform(test_score_close_reshaped).flatten(),
+    sns.lineplot(x=test_score_df['Date'], y=test_score_close_reshaped.flatten(),
                  color='black', linewidth=1.0)
-    sns.scatterplot(x=anomalies['Date'], y=scaler.inverse_transform(anomalies_close_reshaped).flatten(), color='red')
+    sns.scatterplot(x=anomalies['Date'], y=anomalies_close_reshaped.flatten(), color='red')
 
     plt.gcf().autofmt_xdate()  # Rotation for x-axis labels
     plt.gca().set_title('Stock Prices with Anomalies')
@@ -152,13 +147,13 @@ def main():
     input_shape = (X_train.shape[1], X_train.shape[2])
     for Autoencoder in [LSTMAutoencoder, BiLSTMAutoencoder, CNNLSTMAutoencoder]:
         model = Autoencoder(input_shape)
-        history = model.train(X_train, y_train, epochs=2)
+        history = model.train(X_train, y_train, epochs=10)
 
         plot_train_val_loss(history, save=True)
 
         test_score_df, anomalies = determine_anomalies(model, X_train, X_test, test)
 
-        plot_anomaly_points(anomalies, test_score_df, train, test, save=True)
+        plot_anomaly_points(anomalies, test_score_df, train, test, dataset.scaler, save=True)
 
 
 if __name__ == '__main__':
