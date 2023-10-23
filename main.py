@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+from sklearn.preprocessing import StandardScaler
 from matplotlib.dates import DateFormatter
 
 from utils.preprocessing import Dataset
@@ -14,7 +15,7 @@ from models_architectures.BILSTM_Autoencoder import BiLSTMAutoencoder
 from models_architectures.CNNLSTM_Autoencoder import CNNLSTMAutoencoder
 
 
-def plot_anomaly_points(anomalies, test_score_df, train, test, scaler, save=False):
+def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
     """
     Plots the anomaly points on the graph of stock prices.
 
@@ -23,6 +24,10 @@ def plot_anomaly_points(anomalies, test_score_df, train, test, scaler, save=Fals
     :param train: DataFrame containing the training data.
     :param test: DataFrame containing the test data.
     """
+    # Initialize and fit the scaler
+    scaler = StandardScaler()
+    scaler.fit(train[['Close']])
+
     # Avoid SettingWithCopyWarning with proper dataframe handling
     train_scaled = train.copy()
     test_scaled = test.copy()
@@ -153,7 +158,7 @@ def main():
 
         test_score_df, anomalies = determine_anomalies(model, X_train, X_test, test)
 
-        plot_anomaly_points(anomalies, test_score_df, train, test, dataset.scaler, save=True)
+        plot_anomaly_points(anomalies, test_score_df, train, test, save=True)
 
 
 if __name__ == '__main__':
