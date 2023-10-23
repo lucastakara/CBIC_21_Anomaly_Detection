@@ -24,7 +24,7 @@ class BiLSTMAutoencoder:
         model.add(Bidirectional(LSTM(128, return_sequences=True)))  # Adding a BiLSTM layer for decoding.
         model.add(TimeDistributed(Dense(input_shape[1], activation="linear")))  # Assuming linear activation for reconstruction.
 
-        model.compile(optimizer='adam', loss='mae')  # Assuming Mean Absolute Error (mae) is appropriate.
+        model.compile(optimizer='adam', loss='mae')
         return model
 
     def train(self, X_train, y_train, epochs=60, batch_size=32, validation_split=0.1, shuffle=False):

@@ -21,7 +21,7 @@ class LSTMAutoencoder:
         model = Sequential()
         model.add(LSTM(128, input_shape=input_shape, return_sequences=False))
         model.add(RepeatVector(input_shape[0]))
-        model.add(LSTM(128, return_sequences=True))  # Adding an LSTM layer for symmetry in the autoencoder
+        model.add(LSTM(128, return_sequences=True))
         model.add(TimeDistributed(Dense(input_shape[1], activation="linear")))
 
         model.compile(optimizer='adam', loss='mae')

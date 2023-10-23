@@ -39,9 +39,9 @@ def plot_anomaly_points(anomalies, test_score_df, train, test, save=False):
     anomalies_close_reshaped = anomalies['Close'].values.reshape(-1, 1)
 
     # Create the line plot for close prices
-    sns.lineplot(x=test_score_df['Date'], y=scaler.inverse_transform(test_score_close_reshaped).flatten(),
+    sns.lineplot(x=test_score_df['Date'], y=test_score_close_reshaped.flatten(),
                  color='black', linewidth=1.0)
-    sns.scatterplot(x=anomalies['Date'], y=scaler.inverse_transform(anomalies_close_reshaped).flatten(), color='red')
+    sns.scatterplot(x=anomalies['Date'], y=anomalies_close_reshaped.flatten(), color='red')
 
     plt.gcf().autofmt_xdate()  # Rotation for x-axis labels
     plt.gca().set_title('Stock Prices with Anomalies')
@@ -152,7 +152,7 @@ def main():
     input_shape = (X_train.shape[1], X_train.shape[2])
     for Autoencoder in [LSTMAutoencoder, BiLSTMAutoencoder, CNNLSTMAutoencoder]:
         model = Autoencoder(input_shape)
-        history = model.train(X_train, y_train, epochs=2)
+        history = model.train(X_train, y_train, epochs=10)
 
         plot_train_val_loss(history, save=True)
 
