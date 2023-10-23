@@ -8,6 +8,8 @@ class Dataset:
     def __init__(self):
         """Initializes the Dataset object by loading the data."""
         self._data = self._load_data()
+        self.scaler = StandardScaler()
+
 
     @property
     def data(self):
@@ -89,13 +91,12 @@ class Dataset:
         :param test: DataFrame containing the testing data.
         :return: DataFrames of scaled 'Close' prices for training and testing data, and the scaler object.
         """
-        scaler = StandardScaler()
         train_scaled = train.copy()
         test_scaled = test.copy()
 
-        scaler.fit(train_scaled[['Close']])
-        train_scaled['Close'] = scaler.transform(train_scaled[['Close']])
-        test_scaled['Close'] = scaler.transform(test_scaled[['Close']])
+        self.scaler.fit(train_scaled[['Close']])
+        train_scaled['Close'] = self.scaler.transform(train_scaled[['Close']])
+        test_scaled['Close'] = self.scaler.transform(test_scaled[['Close']])
 
         return train_scaled, test_scaled
 
