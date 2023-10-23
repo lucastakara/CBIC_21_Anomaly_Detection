@@ -1,6 +1,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, RepeatVector, TimeDistributed
 
+
 class CNNLSTMAutoencoder:
     def __init__(self, input_shape):
         """
@@ -25,13 +26,10 @@ class CNNLSTMAutoencoder:
         model_CNNLSTM.add(RepeatVector(input_shape[0]))
         model_CNNLSTM.add(TimeDistributed(Dense(input_shape[1], activation="linear")))
 
-        # Consider removing the plot_model line or making it optional as it is file system dependent
-        # plot_model(model_CNNLSTM, to_file="model_CNNLSTM.png", show_shapes=True, show_layer_names=True)
-
-        model_CNNLSTM.compile(optimizer='adam', loss='mape')  # Consider using a standard loss function like 'mae'
+        model_CNNLSTM.compile(optimizer='adam', loss='mae')
         return model_CNNLSTM
 
-    def train(self, X_train, y_train, epochs=60, batch_size=32, validation_split=0.1, shuffle=False):
+    def train(self, X_train, y_train, epochs=10, batch_size=32, validation_split=0.1, shuffle=False):
         """
         Trains the model on the given dataset.
 
