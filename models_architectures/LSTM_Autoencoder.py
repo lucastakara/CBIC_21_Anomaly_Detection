@@ -1,5 +1,6 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LSTM, RepeatVector, TimeDistributed
+from tensorflow.python.keras.callbacks import EarlyStopping
 
 
 class LSTMAutoencoder:
@@ -11,7 +12,8 @@ class LSTMAutoencoder:
         """
         self.model = self._create_model(input_shape)
 
-    def _create_model(self, input_shape):
+    @staticmethod
+    def _create_model(input_shape):
         """
         Creates an LSTM Autoencoder model.
 
@@ -27,26 +29,27 @@ class LSTMAutoencoder:
         model.compile(optimizer='adam', loss='mae')
         return model
 
-    def train(self, X_train, y_train, epochs=60, batch_size=32, validation_split=0.1, shuffle=False):
+    def train(self, X_train, epochs=60, batch_size=32, validation_split=0.1, shuffle=False):
         """
         Trains the model on the given dataset.
 
         :param X_train: ndarray, training data.
-        :param y_train: ndarray, target values for training data.
         :param epochs: int, number of epochs to train the model.
         :param batch_size: int, number of samples per gradient update.
         :param validation_split: float, fraction of the training data to be used as validation data.
         :param shuffle: boolean, whether to shuffle the training data before each epoch.
         :return: History object, details about the training history at each epoch.
         """
+
         history = self.model.fit(
-            x=X_train, y=y_train,
+            x=X_train, y=X_train,
             epochs=epochs,
             batch_size=batch_size,
             validation_split=validation_split,
-            shuffle=shuffle
-        )
+            shuffle=shuffle)
+
         return history
+
 
     def predict(self, data):
         """

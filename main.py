@@ -152,7 +152,7 @@ def main():
     input_shape = (X_train.shape[1], X_train.shape[2])
     for Autoencoder in [LSTMAutoencoder, BiLSTMAutoencoder, CNNLSTMAutoencoder]:
         model = Autoencoder(input_shape)
-        history = model.train(X_train, y_train, epochs=10)
+        history = model.train(X_train, epochs=15)
 
         plot_train_val_loss(history, save=True)
 

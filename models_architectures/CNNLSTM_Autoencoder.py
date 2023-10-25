@@ -29,12 +29,11 @@ class CNNLSTMAutoencoder:
         model_CNNLSTM.compile(optimizer='adam', loss='mae')
         return model_CNNLSTM
 
-    def train(self, X_train, y_train, epochs=10, batch_size=32, validation_split=0.1, shuffle=False):
+    def train(self, X_train, epochs=10, batch_size=32, validation_split=0.1, shuffle=False):
         """
         Trains the model on the given dataset.
 
         :param X_train: ndarray, training data.
-        :param y_train: ndarray, target values for training data.
         :param epochs: int, number of epochs to train the model.
         :param batch_size: int, number of samples per gradient update.
         :param validation_split: float, fraction of the training data to be used as validation data.
@@ -42,7 +41,7 @@ class CNNLSTMAutoencoder:
         :return: History object, details about the training history at each epoch.
         """
         history = self.model.fit(
-            x=X_train, y=y_train,
+            x=X_train, y=X_train,
             epochs=epochs,
             batch_size=batch_size,
             validation_split=validation_split,
