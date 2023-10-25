@@ -125,7 +125,6 @@ class Dataset:
         y = np.array(y)
 
         # Reshape X to three dimensions (num_samples, sequence_length, num_features)
-        # Currently, num_features is 1 as you're only using 'Close' prices for predictions.
         X = np.expand_dims(X, axis=-1)  # Adding a new dimension for num_features
         y = np.expand_dims(y, axis=-1)  # Adding a new dimension for num_features
         return X, y
